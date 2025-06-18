@@ -1,8 +1,9 @@
-package com.estufa.controller;
+package com.estufa.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class EstufaController {
   }
 
   @PostMapping("/transmit")
-  public String transmitPhysicalData(EstufaDTO estufaDTO) {
+  public String transmitPhysicalData(@RequestBody EstufaDTO estufaDTO) {
     return estufaService.transmitPhysicalData(estufaDTO);
   }
 }

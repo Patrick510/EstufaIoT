@@ -42,7 +42,8 @@ public class EstufaService {
     EstufaEmailMessageDto emailMessage = new EstufaEmailMessageDto(
         estufaDTO.getTemperaturaEstufa(),
         estufaDTO.getSensacaoTermicaEstufa(),
-        estufaDTO.getUmidadeEstufa());
+        estufaDTO.getUmidadeEstufa(),
+        "patrickdedinho321xz@gmail.com");
 
     rabbitMQSender.sendMessage(emailMessage);
     return message;

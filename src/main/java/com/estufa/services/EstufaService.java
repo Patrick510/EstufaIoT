@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.estufa.dto.EstufaDTO;
+import com.estufa.dto.EstufaEmailMessageDto;
+import com.estufa.messaging.RabbitMQSender;
 import com.estufa.models.EstufaModel;
 import com.estufa.repositories.EstufaRepository;
 
@@ -14,6 +16,9 @@ public class EstufaService {
 
   @Autowired
   private EstufaRepository estufaRepository;
+
+  @Autowired
+  private RabbitMQSender rabbitMQSender;
 
   public List<EstufaModel> getAllEstufas() {
     return estufaRepository.findAll();
@@ -33,6 +38,13 @@ public class EstufaService {
     estufaModel.setSensacaoTermicaEstufa(estufaDTO.getSensacaoTermicaEstufa());
     estufaModel.setUmidadeEstufa(estufaDTO.getUmidadeEstufa());
     estufaRepository.save(estufaModel);
+
+    EstufaEmailMessageDto emailMessage = new EstufaEmailMessageDto(
+        estufaDTO.getTemperaturaEstufa(),
+        estufaDTO.getSensacaoTermicaEstufa(),
+        estufaDTO.getUmidadeEstufa());
+
+    rabbitMQSender.sendMessage(emailMessage);
     return message;
   }
 }

@@ -11,10 +11,10 @@ public class RabbitMQSender {
   @Autowired
   private RabbitTemplate rabbitTemplate;
 
-  @Value("${spring.rabbitmq.name}")
+  @Value("${spring.rabbitmq.queue}")
   private String queueName;
 
-  public void sendMessage(String message) {
+  public void sendMessage(Object message) {
     rabbitTemplate.convertAndSend(queueName, message);
   }
 }

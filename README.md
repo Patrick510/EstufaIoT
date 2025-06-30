@@ -25,7 +25,9 @@ Este microsserviço é responsável por registrar dados de monitoramento de uma 
 
 ---
 
-## 📊 Modelo de Dados (JSON)
+## 🧪 Exemplo de Requisição
+
+### `POST /estufa/transmit`
 
 ```json
 {
@@ -33,4 +35,37 @@ Este microsserviço é responsável por registrar dados de monitoramento de uma 
   "sensacaoTermicaEstufa": 70.0,
   "umidadeEstufa": 40.0
 }
+```
+
+---
+
+### 🚀 Passos para execução
+
+## 2. Configure o application.properties
+
+Verifique se os dados de conexão estão corretos (exemplo):
+
+```spring.datasource.url=jdbc:mysql://localhost:3306/estufa?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=1234
+
+spring.rabbitmq.addresses=amqps://<user>:<password>@<host>/<vhost>
+spring.rabbitmq.queue=ms.email
+```
+
+```bash
+# 1. Clone o projeto
+git clone https://github.com/Patrick510/email-estufa.git
+cd email-estufa
+
+# 2. Configure o application.properties:
+# - URL e credenciais do banco de dados MySQL
+# - E-mail e senha de app do Gmail
+# - Endereço da fila RabbitMQ (ms.email)
+
+# 3. Build do projeto
+mvn clean install
+
+# 4. Execute a aplicação
+mvn spring-boot:run
 ```
